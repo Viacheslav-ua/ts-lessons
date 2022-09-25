@@ -63,5 +63,18 @@ const advancedProduct: AdvancedProduct = {
   price: 0,
   description: 'wqsdchc   wsdf',
   weight: 223,
-  color: '#hhh'
+  color: '#hhh',
+}
+
+// Деструктуризация
+const subscriptionPoster: AdvancedProduct = {
+  ...typedProduct,
+  weight: 223,
+  color: '#hhh',
+}
+
+// Partial
+let partData: Partial<AdvancedProduct> = {
+  weight: 333,
+  color: 'red'
 }
