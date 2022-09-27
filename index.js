@@ -14,17 +14,20 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+// const UserAgeRestriction = 18
 var User = /** @class */ (function () {
-    function User(name, surname, _isAdmin) {
+    function User(name, surname, age, _isAdmin) {
         if (_isAdmin === void 0) { _isAdmin = false; }
         this.name = name;
         this.surname = surname;
+        this.age = age;
         this._isAdmin = _isAdmin;
         // this.surname = surname
+        if (this.age <= User.ageRestriction) {
+            throw new Error('Age mast be more then 18 years');
+        }
     }
     Object.defineProperty(User.prototype, "gsName", {
-        // private name: string
-        // public readonly surname: string
         get: function () {
             return this.name;
         },
@@ -40,6 +43,9 @@ var User = /** @class */ (function () {
     User.prototype.isAdmin = function () {
         return this._isAdmin;
     };
+    // private name: string
+    // public readonly surname: string
+    User.ageRestriction = 18;
     return User;
 }());
 var Admin = /** @class */ (function (_super) {
@@ -51,22 +57,33 @@ var Admin = /** @class */ (function (_super) {
     }
     return Admin;
 }(User));
-var rita = new User('Rita', 'Hurly');
-console.log(rita);
-console.log(rita.fullName() + ' ' + rita.surname);
-console.log(rita.gsName + ' ' + rita.surname);
-rita.gsName = 'Max';
-console.log(rita.gsName + ' ' + rita.surname);
-if (rita.isAdmin()) {
-    console.log('Hello admin ' + rita.gsName);
+try {
+    var rita = new User('Rita', 'Hurly', 14);
+    console.log(rita);
+    console.log(rita.fullName() + ' ' + rita.surname);
+    console.log(rita.gsName + ' ' + rita.surname);
+    rita.gsName = 'Max';
+    console.log(rita.gsName + ' ' + rita.surname);
+    if (rita.isAdmin()) {
+        console.log('Hello admin ' + rita.gsName);
+    }
+    else {
+        console.log('Hello ' + rita.gsName);
+    }
 }
-else {
-    console.log('Hello ' + rita.gsName);
+catch (e) {
+    console.log(e.message);
 }
-var admin = new Admin('Djinn', 'Dixie');
-if (admin.isAdmin()) {
-    console.log('Hello admin ' + admin.gsName);
+try {
+    var admin = new Admin('Djinn', 'Dixie', 53);
+    console.log(admin);
+    if (admin.isAdmin()) {
+        console.log('Hello admin ' + admin.gsName);
+    }
+    else {
+        console.log('Hello ' + admin.gsName);
+    }
 }
-else {
-    console.log('Hello ' + admin.gsName);
+catch (e) {
+    console.log(e.message);
 }
